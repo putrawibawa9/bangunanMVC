@@ -13,30 +13,23 @@
 <div class="container">
   <div class="row">
     <div class="col-12 p-3 bg-white">
-        <form method="post" action="<?= BASEURL?>/proyek/save" enctype="multipart/form-data">
+        <form method="post" action="<?= BASEURL?>/testimoni/save" enctype="multipart/form-data">
             <div class="mb-3">
-                <input type="text" name="nama_proyek" class="form-control"  placeholder="Nama Proyek">
-            </div>
+                <select name="id_proyek" class="form-select" aria-label="Default select example">
+                    <option selected>Pilih Proyek</option>
+                    <?php foreach($data['proyek'] as $row) :?>
+                    <option value="<?= $row['id_proyek']?>"><?= $row['nama_proyek']?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>      
             <div class="mb-3">
-                <input type="text" name="lokasi_proyek" class="form-control"  placeholder="Lokasi Proyek">
-            </div>
-            <div class="mb-3">
-                <input type="date" name="tanggal_proyek" class="form-control"  placeholder="Nama Proyek">
-            </div>
-            <div class="mb-3">
-                <input type="text" name="size_proyek" class="form-control"  placeholder="Size Proyek">
-            </div>
-            <div class="mb-3">
-                <input type="text" name="budget_proyek" class="form-control"  placeholder="Budget Proyek">
-            </div>
-            <div class="mb-3">
-          <label for="message">Deskripsi Proyek:</label><br>
-        <textarea name="deskripsi_proyek" class="form-control" id="message" name="message"></textarea>
+          <label for="message">Deskripsi testimoni:</label><br>
+        <textarea name="deskripsi_testimoni" class="form-control" id="message" name="message"></textarea>
             </div>
               <div class="mb-3">
-                <input type="file" multiple name="gambar_proyek[]">
+                <input type="file" multiple name="gambar_testimoni">
               </div>
-            <a href="<?=BASEURL?>/proyek/viewProyek" class="btn btn-success" >Kembali</a>
+            <a href="<?=BASEURL?>/testimoni/viewtestimoni" class="btn btn-success" >Kembali</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>

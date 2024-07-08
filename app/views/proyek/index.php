@@ -53,7 +53,7 @@
                             <td><?= htmlspecialchars($project['nama_proyek']) ?></td>
                             <td>
                                     <?php foreach ($project['images'] as $image): ?>
-                                        <img src="<?= BASEURL ?>/img/<?= $image?>" width="100px">
+                                        <img src="<?= BASEURL ?>/img/proyek<?= $image?>" width="100px">
                                     <?php endforeach; ?>
                             </td>
                             <td>

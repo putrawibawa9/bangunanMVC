@@ -9,6 +9,11 @@ public function __construct ()
     $this->db = new Database;
 }
 
+public function viewAllProyek(){
+    $this->db->query("SELECT * FROM proyek");
+    return $this->db->resultSet();
+}
+
 public function view(){
        $this->db->query("SELECT p.id_proyek, p.nama_proyek, gb.gambar_proyek 
         FROM proyek p
@@ -48,7 +53,7 @@ public function view(){
             $namaFileBaru = $data['nama_proyek'] . $counter++ ;
             $namaFileBaru .= '.';
             $namaFileBaru .= $ekstensiGambar;
-             move_uploaded_file($tmp[$i], 'img/'.$namaFileBaru);
+             move_uploaded_file($tmp[$i], 'img/proyek/'.$namaFileBaru);
              $this->db->query("INSERT INTO `gambar_proyek` (`gambar_proyek`, `id_proyek`) VALUES (:gambar_proyek, :id_proyek)");
             $this->db->bind('gambar_proyek', $namaFileBaru);
             $this->db->bind('id_proyek', $id_proyek['id_proyek']);

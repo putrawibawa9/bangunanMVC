@@ -9,8 +9,9 @@ class Testimoni extends Controller{
     }
 
       public function add(){
+        $data['proyek'] = $this->model('Proyek_model')->viewAllProyek();
         $this->view('templates/header');
-        $this->view('testimoni/add');
+        $this->view('testimoni/add', $data);
         $this->view('templates/footer');
     }
 

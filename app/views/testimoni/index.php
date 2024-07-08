@@ -12,7 +12,7 @@
             <h4 class="text-center">Data Proyek</h4>
             <p class="text-center">Selamat datang <span class="text-primary"><?= $_COOKIE['admin']?></span> </p>
             <div class="text-center">
-                <a class="btn btn-primary btn-sm" href="<?= BASEURL;?>/blog/add">Tambah Data Blog</a>
+                <a class="btn btn-primary btn-sm" href="<?= BASEURL;?>/testimoni/add">Tambah Data Testimoni</a>
             </div>
         </div>
     </div>

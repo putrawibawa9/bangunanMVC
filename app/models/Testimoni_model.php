@@ -37,20 +37,19 @@ ON
     }
 
     public function save($data){
-        $counter = 1;
-
-        $query ="INSERT INTO `proyek` (`nama_proyek`, `lokasi_proyek`, `tanggal_proyek`, `size_proyek`, `budget_proyek`, `deskripsi_proyek`) VALUES (:nama_proyek, :lokasi_proyek, :tanggal_proyek, :size_proyek, :budget_proyek, :deskripsi_proyek)";
+        $query ="INSERT INTO `testimoni` (`deskripsi_proyek`, `gambar_testimomi`) VALUES (:deskripsi_proyek, :gambar_testimomi)";
       $this->db->query($query);
-       $this->db->bind('nama_proyek', $data['nama_proyek']);
-       $this->db->bind('lokasi_proyek', $data['lokasi_proyek']);
-       $this->db->bind('tanggal_proyek', $data['tanggal_proyek']);
-       $this->db->bind('size_proyek', $data['size_proyek']);
-       $this->db->bind('budget_proyek', $data['budget_proyek']);
        $this->db->bind('deskripsi_proyek', $data['deskripsi_proyek']);
+       $this->db->bind('gambar_testimomi', $data['gambar_testimomi']);
        $this->db->execute();
-       $id_proyek =$this->lastID();
 
-    //    For Image
+         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar_proyek"])) {
+              $tmp = $_FILES["gambar_proyek"]["tmp_name"];
+              $fileName = $_FILES["gambar_proyek"]["name"];
+            $ekstensiGambar = explode('.', $fileName); 
+             $ekstensiGambar = strtolower(end($ekstensiGambar)); 
+             }
+                 //    For Image
      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar_proyek"])) {
         $tmp = $_FILES["gambar_proyek"]["tmp_name"];
        $fileNames = $_FILES["gambar_proyek"]["name"];
