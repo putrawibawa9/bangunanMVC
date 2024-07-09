@@ -37,64 +37,63 @@ ON
     }
 
     public function save($data){
-        $query ="INSERT INTO `testimoni` (`deskripsi_proyek`, `gambar_testimomi`) VALUES (:deskripsi_proyek, :gambar_testimomi)";
-      $this->db->query($query);
-       $this->db->bind('deskripsi_proyek', $data['deskripsi_proyek']);
-       $this->db->bind('gambar_testimomi', $data['gambar_testimomi']);
-       $this->db->execute();
-
-         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar_proyek"])) {
-              $tmp = $_FILES["gambar_proyek"]["tmp_name"];
-              $fileName = $_FILES["gambar_proyek"]["name"];
+        var_dump($_FILES);
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar_testimoni"])) {
+              $tmp = $_FILES["gambar_testimoni"]["tmp_name"];
+              $fileName = $_FILES["gambar_testimoni"]["name"];
             $ekstensiGambar = explode('.', $fileName); 
              $ekstensiGambar = strtolower(end($ekstensiGambar)); 
-             }
-                 //    For Image
-     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar_proyek"])) {
-        $tmp = $_FILES["gambar_proyek"]["tmp_name"];
-       $fileNames = $_FILES["gambar_proyek"]["name"];
-        for ($i = 0; $i < count($fileNames); $i++) {
-             $fileName = $fileNames[$i];
-             $ekstensiGambar = explode('.', $fileName); 
-             $ekstensiGambar = strtolower(end($ekstensiGambar)); 
-            $namaFileBaru = $data['nama_proyek'] . $counter++ ;
+            $namaFileBaru =substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
             $namaFileBaru .= '.';
             $namaFileBaru .= $ekstensiGambar;
-             move_uploaded_file($tmp[$i], 'img/'.$namaFileBaru);
-             $this->db->query("INSERT INTO `gambar_proyek` (`gambar_proyek`, `id_proyek`) VALUES (:gambar_proyek, :id_proyek)");
-            $this->db->bind('gambar_proyek', $namaFileBaru);
-            $this->db->bind('id_proyek', $id_proyek['id_proyek']);
-            $this->db->execute();
-        }
-     }
+            move_uploaded_file($tmp, 'img/testimoni/'.$namaFileBaru);
+             }
+        $query ="INSERT INTO `testimoni` (`id_proyek`,`deskripsi_testimoni`, `gambar_testimoni`) VALUES (:id_proyek, :deskripsi_testimoni, :gambar_testimoni)";
+      $this->db->query($query);
+       $this->db->bind('id_proyek', $data['id_proyek']);
+       $this->db->bind('deskripsi_testimoni', $data['deskripsi_testimoni']);
+       $this->db->bind('gambar_testimoni', $namaFileBaru);
+       $this->db->execute();
        return $this->db->rowCount();
     }
 
-     public function delete($id_blog){
-        $this->db->query("DELETE FROM blog_sederhana WHERE `blog_sederhana`.`id_blog` = :id_blog");
-        $this->db->bind('id_blog', $id_blog);
+     public function delete($id_testimoni){
+        $this->db->query("DELETE FROM testimoni WHERE `testimoni`.`id_testimoni` = :id_testimoni");
+        $this->db->bind('id_testimoni', $id_testimoni);
         $this->db->execute();
         return $this->db->rowCount();
     }
 
-    public function viewOne($id_blog){
-        $this->db->query("SELECT p.id_proyek, p.nama_proyek, gb.gambar_proyek, gb.id_gambar_proyek 
-                            FROM proyek p
-                            LEFT JOIN gambar_proyek gb ON p.id_proyek = gb.id_proyek
-                            WHERE p.id_proyek = :id_blog
-                            ORDER BY p.id_proyek, gb.gambar_proyek;");
-        $this->db->bind('id_blog', $id_blog);
-        return $this->db->resultSet();
+    public function viewOne($id_testimoni){
+        $this->db->query("SELECT *
+                            FROM testimoni 
+                            JOIN proyek ON testimoni.id_proyek = proyek.id_proyek
+                            WHERE id_testimoni = :id_testimoni;");
+        $this->db->bind('id_testimoni', $id_testimoni);
+        return $this->db->single();
     }
 
         public function update($data){
-        $query = "UPDATE `blog_sederhana` SET `judul_blog` = :judul_blog, `deskripsi_blog` = :deskripsi_blog, `tanggal_pembuatan` = :tanggal_pembuatan WHERE `blog_sederhana`.`id_blog` = :id_blog";
+            if($_FILES['gambar_testimoni']['error'] === 4){
+                $gambar_testimoni = $data['gambar_testimoni_lama'];
+            }else{
+            $tmp = $_FILES["gambar_testimoni"]["tmp_name"];
+            $fileName = $_FILES["gambar_testimoni"]["name"];
+            $ekstensiGambar = explode('.', $fileName); 
+            $ekstensiGambar = strtolower(end($ekstensiGambar)); 
+            $gambar_testimoni =substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
+            $gambar_testimoni .= '.';
+            $gambar_testimoni .= $ekstensiGambar;
+            move_uploaded_file($tmp, 'img/testimoni/'.$gambar_testimoni);
+
+            }
+
+        $query = "UPDATE `testimoni` SET `deskripsi_testimoni` = :deskripsi_testimoni, `gambar_testimoni` = :gambar_testimoni WHERE `testimoni`.`id_testimoni` = :id_testimoni";
 
       $this->db->query($query);
-       $this->db->bind('judul_blog', $data['judul_blog']);
-       $this->db->bind('deskripsi_blog', $data['deskripsi_blog']);
-       $this->db->bind('tanggal_pembuatan', $data['tanggal_pembuatan']);
-       $this->db->bind('id_blog', $data['id_blog']);
+       $this->db->bind('deskripsi_testimoni', $data['deskripsi_testimoni']);
+       $this->db->bind('gambar_testimoni', $gambar_testimoni);
+       $this->db->bind('id_testimoni', $data['id_testimoni']);
 
        $this->db->execute();
        return $this->db->rowCount();

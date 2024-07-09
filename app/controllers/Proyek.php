@@ -2,7 +2,7 @@
 
 class Proyek extends Controller{
     public function viewProyek(){
-         $data['proyek'] = $this->model('Proyek_model')->view();
+         $data['proyek'] = $this->model('Proyek_model')->viewAllProyek();
           $this->view('templates/header', $data);
         $this->view('proyek/index', $data);
         $this->view('templates/footer');
@@ -17,14 +17,14 @@ class Proyek extends Controller{
       public function save(){
         if($this->model("Proyek_model")->save($_POST) > 0){
             Flasher::setFlash('sucesfully', 'Added', 'success');
-      header('Location: '. BASEURL . '/proyek/add');
+      header('Location: '. BASEURL . '/proyek/viewProyek');
         }
     }
 
        public function delete($id_blog){
-        if($this->model("Blog_model")->delete($id_blog) > 0){
+        if($this->model("Proyek_model")->delete($id_blog) > 0){
             Flasher::setFlash('sucesfully', 'deleted', 'danger'); 
-           header('Location: '. BASEURL . '/proyek/viewBlog');
+           header('Location: '. BASEURL . '/proyek/viewProyek');
         }
     }
 
@@ -36,9 +36,9 @@ class Proyek extends Controller{
     }
 
      public function update(){
-        if($this->model("Blog_model")->update($_POST) > 0){
+        if($this->model("Proyek_model")->update($_POST) > 0){
           Flasher::setFlash('sucesfully', 'updated', 'secondary'); 
-           header('Location: '. BASEURL . '/blog/viewBlog');
+           header('Location: '. BASEURL . '/proyek/viewProyek');
         }
     }
 

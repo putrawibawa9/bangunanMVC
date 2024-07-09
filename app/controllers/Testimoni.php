@@ -18,19 +18,19 @@ class Testimoni extends Controller{
       public function save(){
         if($this->model("Testimoni_model")->save($_POST) > 0){
             Flasher::setFlash('sucesfully', 'Added', 'success');
-      header('Location: '. BASEURL . '/testimoni/add');
+      header('Location: '. BASEURL . '/testimoni/viewTestimoni');
         }
     }
 
-       public function delete($id_blog){
-        if($this->model("Testimoni_model")->delete($id_blog) > 0){
+       public function delete($id_testimoni){
+        if($this->model("Testimoni_model")->delete($id_testimoni) > 0){
             Flasher::setFlash('sucesfully', 'deleted', 'danger'); 
-           header('Location: '. BASEURL . '/testimoni/viewBlog');
+           header('Location: '. BASEURL . '/testimoni/viewTestimoni');
         }
     }
 
-      public function viewOne($id_blog){
-        $data['testimoni'] = $this->model('Testimoni_model')->viewOne($id_blog);
+      public function viewOne($id_testimoni){
+        $data['testimoni'] = $this->model('Testimoni_model')->viewOne($id_testimoni);
         $this->view('templates/header');
         $this->view('testimoni/edit', $data);
         $this->view('templates/footer');
@@ -39,7 +39,7 @@ class Testimoni extends Controller{
      public function update(){
         if($this->model("Testimoni_model")->update($_POST) > 0){
           Flasher::setFlash('sucesfully', 'updated', 'secondary'); 
-           header('Location: '. BASEURL . '/blog/viewBlog');
+           header('Location: '. BASEURL . '/testimoni/viewTestimoni');
         }
     }
 

@@ -1,37 +1,38 @@
 <?php
 
-class Gambar extends Controller{
-    public function viewProyek(){
-         $data['proyek'] = $this->model('Proyek_model')->view();
+class GambarProyek extends Controller{
+    public function viewGambar(){
+         $data['gambarProyek'] = $this->model('GambarProyek_model')->view();
           $this->view('templates/header', $data);
-        $this->view('proyek/index', $data);
+        $this->view('gambarProyek/index', $data);
         $this->view('templates/footer');
     }
 
       public function add(){
+        $data = $this->model('Proyek_model')->viewAllProyek();
         $this->view('templates/header');
-        $this->view('proyek/add');
+        $this->view('gambarProyek/add', $data);
         $this->view('templates/footer');
     }
 
       public function save(){
-        if($this->model("Proyek_model")->save($_POST) > 0){
+        if($this->model("GambarProyek_model")->save($_POST) > 0){
             Flasher::setFlash('sucesfully', 'Added', 'success');
-      header('Location: '. BASEURL . '/proyek/add');
+      header('Location: '. BASEURL . '/gambarProyek/viewGambar');
         }
     }
 
        public function delete($id_gambar_proyek){
-        if($this->model("Gambar_model")->delete($id_gambar_proyek) > 0){
+        if($this->model("GambarProyek_model")->delete($id_gambar_proyek) > 0){
             Flasher::setFlash('sucesfully', 'deleted', 'danger'); 
-           header('Location: '. BASEURL . '/proyek/viewProyek');
+           header('Location: '. BASEURL . '/gambarProyek/viewGambar');
         }
     }
 
-      public function viewOne($id_blog){
-        $data['proyek'] = $this->model('Proyek_model')->viewOne($id_blog);
+      public function viewOne($id_proyek){
+        $data['proyek'] = $this->model('GambarProyek_model')->viewOne($id_proyek);
         $this->view('templates/header');
-        $this->view('proyek/edit', $data);
+        $this->view('gambarProyek/edit', $data);
         $this->view('templates/footer');
     }
 
