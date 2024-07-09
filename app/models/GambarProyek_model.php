@@ -1,6 +1,6 @@
 <?php
 
-class Gambar_model{
+class GambarProyek_model{
     private $db;
 
 public function __construct ()
@@ -23,20 +23,7 @@ public function view(){
     }
 
     public function save($data){
-        $counter = 1;
-
-        $query ="INSERT INTO `proyek` (`nama_proyek`, `lokasi_proyek`, `tanggal_proyek`, `size_proyek`, `budget_proyek`, `deskripsi_proyek`) VALUES (:nama_proyek, :lokasi_proyek, :tanggal_proyek, :size_proyek, :budget_proyek, :deskripsi_proyek)";
-      $this->db->query($query);
-       $this->db->bind('nama_proyek', $data['nama_proyek']);
-       $this->db->bind('lokasi_proyek', $data['lokasi_proyek']);
-       $this->db->bind('tanggal_proyek', $data['tanggal_proyek']);
-       $this->db->bind('size_proyek', $data['size_proyek']);
-       $this->db->bind('budget_proyek', $data['budget_proyek']);
-       $this->db->bind('deskripsi_proyek', $data['deskripsi_proyek']);
-       $this->db->execute();
-       $id_proyek =$this->lastID();
-
-    //    For Image
+        $id_proyek = $data['id_proyek'];
      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["gambar_proyek"])) {
         $tmp = $_FILES["gambar_proyek"]["tmp_name"];
        $fileNames = $_FILES["gambar_proyek"]["name"];
@@ -44,13 +31,13 @@ public function view(){
              $fileName = $fileNames[$i];
              $ekstensiGambar = explode('.', $fileName); 
              $ekstensiGambar = strtolower(end($ekstensiGambar)); 
-            $namaFileBaru = $data['nama_proyek'] . $counter++ ;
+            $namaFileBaru = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
             $namaFileBaru .= '.';
             $namaFileBaru .= $ekstensiGambar;
-             move_uploaded_file($tmp[$i], 'img/'.$namaFileBaru);
+             move_uploaded_file($tmp[$i], 'img/proyek/'.$namaFileBaru);
              $this->db->query("INSERT INTO `gambar_proyek` (`gambar_proyek`, `id_proyek`) VALUES (:gambar_proyek, :id_proyek)");
             $this->db->bind('gambar_proyek', $namaFileBaru);
-            $this->db->bind('id_proyek', $id_proyek['id_proyek']);
+            $this->db->bind('id_proyek', $id_proyek);
             $this->db->execute();
         }
      }
@@ -65,7 +52,7 @@ public function view(){
     }
 
     public function viewOne($id_blog){
-        $this->db->query("SELECT p.id_proyek, p.nama_proyek, gb.gambar_proyek 
+        $this->db->query("SELECT p.id_proyek, p.nama_proyek, gb.gambar_proyek, gb.id_gambar_proyek
                             FROM proyek p
                             LEFT JOIN gambar_proyek gb ON p.id_proyek = gb.id_proyek
                             WHERE p.id_proyek = :id_blog

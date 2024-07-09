@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center">
-            <img src="<?= BASEURL?>/img/spDigital.png" class="img-fluid" width="200px" alt="Logo SP Digital">
+            <img src="<?= BASEURL?>/img/KNA.jpeg" class="img-fluid" width="200px" alt="Logo SP Digital">
         </div>
     </div>
 </div>
@@ -13,7 +13,7 @@
             <h4 class="text-center">Data Proyek</h4>
             <p class="text-center">Selamat datang <span class="text-primary"><?= $_COOKIE['admin']?></span> </p>
             <div class="text-center">
-                <a class="btn btn-primary btn-sm" href="<?= BASEURL;?>/blog/add">Tambah Data Blog</a>
+                <a class="btn btn-primary btn-sm" href="<?= BASEURL;?>/proyek/add">Tambah Data Proyek</a>
             </div>
         </div>
     </div>
@@ -35,31 +35,30 @@
                     <tr>
                         <th class="text-center">No</th>
                         <th class="text-center">Nama Proyek</th>
-                        <th class="text-center">Gambar</th>
+                        <th class="text-center">Lokasi</th>
+                        <th class="text-center">Tanggal</th>
+                        <th class="text-center">Size</th>
+                        <th class="text-center">Budget</th>
+                        <th class="text-center">Deskripsi</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                    $i = 1;
-                    $projectImages = [];
-                    foreach ($data['proyek'] as $row) {
-                        $projectImages[$row['id_proyek']]['nama_proyek'] = $row['nama_proyek'];
-                        $projectImages[$row['id_proyek']]['images'][] = $row['gambar_proyek'];
-                    }
-                    foreach ($projectImages as $id_proyek => $project): ?>
-                        <tr>
+                    <tr>
+                        <?php $i = 1; ?>
+                        <?php foreach($data['proyek'] as $row) :?>
                             <td><?= $i++ ?></td>
-                            <td><?= htmlspecialchars($project['nama_proyek']) ?></td>
+                            <td><?= htmlspecialchars($row['nama_proyek']) ?></td>
+                            <td><?= htmlspecialchars($row['lokasi_proyek']) ?></td>
+                            <td><?= htmlspecialchars($row['tanggal_proyek']) ?></td>
+                            <td><?= htmlspecialchars($row['size_proyek']) ?></td>
+                            <td><?= htmlspecialchars($row['budget_proyek']) ?></td>
+                            <td><?= htmlspecialchars($row['deskripsi_proyek']) ?></td>
                             <td>
-                                    <?php foreach ($project['images'] as $image): ?>
-                                        <img src="<?= BASEURL ?>/img/proyek<?= $image?>" width="100px">
-                                    <?php endforeach; ?>
+                                <a class="btn btn-secondary" href="<?= BASEURL?>/proyek/viewOne/<?= $row['id_proyek'] ?>">Edit</a>
+                                <a class="btn btn-danger" href="<?= BASEURL?>/proyek/delete/<?= $row['id_proyek'] ?>">Delete</a>
                             </td>
-                            <td>
-                                <a href="<?= BASEURL?>/proyek/viewOne/<?= $id_proyek ?>">Edit</a>
-                            </td>
-                        </tr>
+                            </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>

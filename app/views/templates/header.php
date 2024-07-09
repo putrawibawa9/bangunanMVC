@@ -17,10 +17,24 @@
         <div class="col-12">
         <nav class="navbar navbar-expand-lg bg-white">
   <div class="container-fluid">
-    <a class="navbar-brand " href="#">BLOG SP DIGITAL</a>
+    <a class="navbar-brand " href="#">KNA Construction</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="<?= BASEURL;?>/proyek/viewProyek">Proyek</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= BASEURL;?>/gambarProyek/viewGambar">Gambar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= BASEURL;?>/testimoni/viewTestimoni">Testimoni</a>
+        </li>
+      </ul>
+    </div>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="<?= BASEURL;?>/auth/login">Keluar</a>
