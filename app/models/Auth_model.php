@@ -9,8 +9,6 @@ public function __construct ()
 }
 
 public function register($data){
-    // var_dump($data);
-    // exit;
     $query = "INSERT INTO `admin` (`username`, `password`) VALUES (:username, :password)";
     $this->db->query($query);
     $this->db->bind('username', $data['username']);
