@@ -1,7 +1,7 @@
 <?php
 class App{
     // initiate the variable for each and set the default for each functionality
-    protected $controller = "auth";
+    protected $controller = "Auth";
     protected $method = "login";
     protected $params = [];
 

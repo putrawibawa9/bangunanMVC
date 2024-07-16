@@ -10,6 +10,8 @@
     <div class="col-12 p-3 bg-white">
       <h4 class="text-center">Tambah Proyek</h4>
 </div>
+</div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-12 p-3 bg-white">

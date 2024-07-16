@@ -1,8 +1,8 @@
 
-<div class="container">
+<div div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-12 text-center">
-            <img src="<?= BASEURL?>/img/KNA.jpeg" class="img-fluid" width="200px" alt="Logo SP Digital">
+           <img src="<?= BASEURL?>/img/KNA.jpeg" class="img-fluid" width="200px" alt="Logo SP Digital">
         </div>
     </div>
 </div>
